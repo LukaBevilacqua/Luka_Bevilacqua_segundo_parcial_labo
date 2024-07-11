@@ -102,10 +102,9 @@ def game_loop(screen):
                 finish()
             if event.type == EVENT_NEW_COIN:
                     handler_new_coin(coins, WIDTH, (HEIGHT - BLOCK_HEIGHT), COIN_SIZE, YELLOW, image_coin)
-                    print("nueva moneda")
             if event.type == EVENT_NEW_SLOW_COIN:
-                    handler_new_coin(slow_coins, WIDTH, (HEIGHT - BLOCK_HEIGHT), COIN_SIZE, BLUE, image_slow_coin)
-                    print("MONEDA ESPECIAL")
+                    handler_new_coin(slow_coins, WIDTH, (HEIGHT - BLOCK_HEIGHT), 
+                                    COIN_SIZE, BLUE, image_slow_coin)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
                     move_right = True
@@ -213,7 +212,6 @@ def game_loop(screen):
             if detect_collision(motorcycle["rect"], block["rect"]):
                 collision = True
                 if collision:
-                    print("Chocaron")
                     motorcycles.remove(motorcycle)
                     hearts -= 1
                     text_life = font.render(f"hearts: {hearts}", True, BLACK)
@@ -229,7 +227,6 @@ def game_loop(screen):
             if detect_collision(truck["rect"], block["rect"]):
                 collision = True
                 if collision:
-                    print("Chocaron")
                     trucks.remove(truck)
                     hearts -= 1
                     text_life = font.render(f"hearts: {hearts}", True, BLACK)
@@ -245,7 +242,6 @@ def game_loop(screen):
             if detect_collision(car["rect"], block["rect"]):
                 collision = True
                 if collision:
-                    print("Chocaron")
                     cars.remove(car)
                     hearts -= 1
                     text_life = font.render(f"hearts: {hearts}", True, BLACK)

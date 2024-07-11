@@ -15,6 +15,7 @@ def main_menu(screen):
     font = pygame.font.SysFont(None, 48)
 
     # cargo musica de fondo
+    playing_music = True
     try:
         pygame.mixer.music.load("./src/assets/background_sound.mp3")
         pygame.mixer.music.set_volume(0.2)
@@ -26,6 +27,7 @@ def main_menu(screen):
     play_button = pygame.Rect(CENTER_SCREEN[0] - BUTTON_WIDTH // 2, 250, BUTTON_WIDTH, BUTTON_HEIGHT)
     ranking_button = pygame.Rect(CENTER_SCREEN[0] - BUTTON_WIDTH // 2, 350, BUTTON_WIDTH, BUTTON_HEIGHT)
     quit_button = pygame.Rect(CENTER_SCREEN[0] - BUTTON_WIDTH // 2, 450, BUTTON_WIDTH, BUTTON_HEIGHT)
+    mute_button = pygame.Rect(20, 580, BUTTON_HEIGHT, BUTTON_HEIGHT)
 
     running = True
     while running:
@@ -37,6 +39,7 @@ def main_menu(screen):
         create_button(screen, play_button, 'Play', GREEN, GREEN_PERSONALIZED)
         create_button(screen, ranking_button, 'Ranking', GREEN, GREEN_PERSONALIZED)
         create_button(screen, quit_button, 'Quit', GREEN, GREEN_PERSONALIZED)
+        create_button(screen, mute_button, 'Mute', YELLOW, LIGHT_BLUE)
 
         pygame.display.flip()
 
@@ -50,6 +53,13 @@ def main_menu(screen):
                     show_ranking(screen, scores)
                 elif 450 < event.pos[1] < 450 + quit_button.height:
                     running = False
+                elif 580 < event.pos[1] < 580 + mute_button.height:
+                    if playing_music:
+                        pygame.mixer.music.pause()
+                    else:
+                        pygame.mixer.music.unpause()
+                    playing_music = not playing_music
+
 
 
 

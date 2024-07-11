@@ -4,7 +4,7 @@ from config import *
 from game import game_loop
 from ranking import show_ranking
 
-
+scores = []
 
 def main_menu(screen):
     # fondo
@@ -47,7 +47,7 @@ def main_menu(screen):
                 if 250 < event.pos[1] < 250 + play_button.height:
                     game_loop(screen)
                 elif 350 < event.pos[1] < 350 + ranking_button.height:
-                    show_ranking(screen)
+                    show_ranking(screen, scores)
                 elif 450 < event.pos[1] < 450 + quit_button.height:
                     running = False
 

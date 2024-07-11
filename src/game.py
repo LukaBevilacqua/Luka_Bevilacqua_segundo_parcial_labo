@@ -284,4 +284,5 @@ def game_loop(screen):
         pygame.display.flip()
     
     from game_over import game_over_screen
-    game_over_screen(screen, score)
+    from initial_menu import scores
+    game_over_screen(screen, score, scores)

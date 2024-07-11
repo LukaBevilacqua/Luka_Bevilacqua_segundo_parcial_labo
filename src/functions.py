@@ -1,6 +1,6 @@
 def create_block(left = 0, top = 0, width = 50, height = 50, colour = (255, 255, 255),
                 direction = 3, edge = 0, radius = -1, speed_x = 5, speed_y = 5, img = None)-> dict:
-    """crea un bloque usando pygame
+    """crea un bloque usando pygame.
 
     Args:
         left (int, optional): posicion en x. Defaults to 0.
@@ -26,7 +26,7 @@ def create_block(left = 0, top = 0, width = 50, height = 50, colour = (255, 255,
 
 def show_text(surface, text: str, font: str, pos: tuple[int, int],
             color_font: tuple[int, int, int], color_background: tuple[int, int, int] = None) -> None:
-    """muestra el texto en la pantalla
+    """muestra el texto en la pantalla.
 
     Args:
         surface (surface): superficie donde se va a mostrar el texto
@@ -42,7 +42,7 @@ def show_text(surface, text: str, font: str, pos: tuple[int, int],
 
 
 def finish()-> None:
-    """termina un bucle de pygame
+    """termina un bucle de pygame.
     """
     import pygame, sys
     pygame.quit()
@@ -51,7 +51,7 @@ def finish()-> None:
 
 def show_text_button(surface, text: str, x: int, y: int, font_size: int = 36,
                     colour: tuple[int, int, int] = (0, 0, 0))-> None:
-    """muestra el texto de un boton
+    """muestra el texto de un boton.
 
     Args:
         surface (surface): superficie donde se va a mostrar el texto
@@ -68,7 +68,7 @@ def show_text_button(surface, text: str, x: int, y: int, font_size: int = 36,
     surface.blit(render, rect_text)
 
 def create_button(screen, rect, text: str, colour_button: tuple, colour_hover: tuple)-> None:
-    """crea un boton y lo muestra en pantalla
+    """crea un boton y lo muestra en pantalla.
 
     Args:
         screen (surface): superficie donde se va a mostrar el boton
@@ -87,7 +87,7 @@ def create_button(screen, rect, text: str, colour_button: tuple, colour_hover: t
 
 def handler_new_coin(list: list, width_screen: int, height_screen: int,
                     size_coin: int, colour: tuple[int, int, int], img):
-    """crea una nueva moneda y la agrega a una lista
+    """crea una nueva moneda y la agrega a una lista.
 
     Args:
         list (list): lista donde se agregan las monedas
@@ -156,7 +156,7 @@ def get_user_name(screen)-> str:
     return text
 
 def pause(button: int)-> None:
-    """pausa el juego
+    """pausa el juego.
 
     Args:
         button (int): tecla a apretar para pausar el juego
@@ -173,7 +173,7 @@ def pause(button: int)-> None:
 
 def load_enemies(list: list, quantity: int, enemy_size: tuple[int, int],
                 color: tuple[int, int, int], image)-> None:
-    """carga los enemigos
+    """carga los enemigos.
 
     Args:
         list (list): lista de los enemigos
@@ -189,3 +189,83 @@ def load_enemies(list: list, quantity: int, enemy_size: tuple[int, int],
                                 width = enemy_size[0], height = enemy_size[1], colour = color, 
                                 img= image)
         list.append(enemy)
+
+def get_path(filename: str)-> str:
+    """obtiene el path.
+
+    Args:
+        filename (str): nombre del archivo
+
+    Returns:
+        str: path completo
+    """
+    import os
+    current_directory = os.path.dirname(__file__)
+    return os.path.join(current_directory, filename)
+
+def save_data(filename: str, list: list, player_name: str, score: int)-> None:
+    """guarda la data del jugador en un archivo .json.
+
+    Args:
+        filename (str): nombre del archivo donde se va a guardar si no existe lo crea
+        list (list): lista con lo que se va a guardar
+        player_name (str): nombre del jugador
+        score (int): puntuacion del jugador
+    """
+    import json
+    player_data = {
+        "name": player_name,
+        "score": score
+    }
+    list.append(player_data)
+    with open(get_path(filename), 'w', encoding="utf-8") as file:
+        json.dump(list, file, indent= 4)
+
+def load_data(filename: str)-> dict:
+    """carga un archivo .json en un diccionario.
+
+    Args:
+        filename (str): nombre del archivo .json
+
+    Returns:
+        dict: diccionario con el contenido del archivo .json
+    """
+    import json
+    try:
+        with open(get_path(filename), 'r', encoding="utf-8") as file:
+            player_data = json.load(file)
+    except:
+        player_data = {}
+    return player_data
+
+def swap_lista(lista: list, i: int, j: int)->None:
+    """cambia de lugar algo dentro de una lista.
+
+    Args:
+        lista (list): lista
+        i (int): elemento i
+        j (int): elemento j
+    """
+    aux = lista[i]
+    lista[i] = lista[j]
+    lista[j] = aux
+
+def sort_players(lista: list)->None:
+    """ordena a los jugadores de mayor a menor, por puntuacion, y si son iguales por orden alfabetico.
+
+    Args:
+        lista (list): lista a ordenar
+
+    Raises:
+        TypeError: no es una lista
+    """
+    if not isinstance(lista, list):
+        raise TypeError("Eso no es una lista")
+    tam = len(lista)
+    for i in range(tam - 1):
+        for j in range(i + 1, tam):
+            if lista[i]["score"] == lista[j]["score"]:
+                if lista[i]["name"] > lista[j]["name"]:
+                    swap_lista(lista, i, j)
+            elif lista[i]["score"] < lista[j]["score"]:
+                swap_lista(lista, i, j)

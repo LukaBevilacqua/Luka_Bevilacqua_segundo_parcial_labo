@@ -3,14 +3,13 @@ from functions import *
 from config import *
 
 
-def game_over_screen(screen, score):
+def game_over_screen(screen, score: int, scores: list):
     pygame.mixer.music.stop()
     clock = pygame.time.Clock()
 
-    # Guardar el puntaje en el archivo
+    # Guardar el puntaje en el archivo .json
     name = get_user_name(screen)
-    with open('scores.txt', 'a') as file:
-        file.write(f'{name} {score}\n')
+    save_data("scores.json", scores, name, score)
 
     running = True
     while running:

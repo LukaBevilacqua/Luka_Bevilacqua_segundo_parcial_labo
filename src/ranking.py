@@ -1,20 +1,20 @@
-import pygame
+import pygame, json
 from functions import *
 from config import *
 
-def show_ranking(screen):
+
+def show_ranking(screen, scores):
     clock = pygame.time.Clock()
     
-
+    
     background_ranking = pygame.transform.scale(pygame.image.load("./src/assets/background_ranking.jpg"), 
                                                 SIZE_SCREEN)
-
+    
     # Leer los scores desde un archivo
-    try:
-        with open('scores.txt', 'r') as file:
-            scores = [line.strip().split() for line in file.readlines()]
-    except FileNotFoundError:
-        scores = []
+    # cambiar a json
+    scores = load_data("scores.json")
+
+    sort_players(scores)
 
     quit_button = pygame.Rect(5, 5, 50, BUTTON_HEIGHT)
 
@@ -35,14 +35,15 @@ def show_ranking(screen):
 
         show_text(screen, "RANKING", font, (WIDTH//2, 50), BLACK)
 
-
         create_button(screen, quit_button, 'X', RED, RED_PERSONALIZED)
 
         y_offset = 100
+        number = 1
         for score in scores:
-            score_text = font.render(f'{score[0]}: {score[1]}', True, BLACK)
+            score_text = font.render(f'{number} - {score["name"]}: {score["score"]}', True, BLACK)
             screen.blit(score_text, (100, y_offset))
             y_offset += 40
+            number += 1
 
         pygame.display.flip()
         clock.tick(FPS)

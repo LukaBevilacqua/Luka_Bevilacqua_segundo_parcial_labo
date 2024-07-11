@@ -204,7 +204,6 @@ def game_loop(screen):
                 if flag_slow_coin:
                     if time_slow_coin > 0:
                         time_slow_coin -= 1
-                        print(time_slow_coin)
                     elif time_slow_coin == 0:
                         flag_slow_coin = False
 

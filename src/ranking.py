@@ -1,4 +1,4 @@
-import pygame, json
+import pygame
 from functions import *
 from config import *
 
@@ -10,8 +10,7 @@ def show_ranking(screen, scores):
     background_ranking = pygame.transform.scale(pygame.image.load("./src/assets/background_ranking.jpg"), 
                                                 SIZE_SCREEN)
     
-    # Leer los scores desde un archivo
-    # cambiar a json
+    # Leer los scores desde un archivo .json
     scores = load_data("scores.json")
 
     sort_players(scores)
